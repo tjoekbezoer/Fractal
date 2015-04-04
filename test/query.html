@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite: Query</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="list">
+		<ul>
+			<li>Item 1
+			<li>Item 2
+			<li>Item 3
+		</ul>
+	</template>
+	
+	<script src="functions.js"></script>
+	<script src="zepto.js"></script>
+	<script src="../lib/fractal.js"></script>
+	<script src="../lib/mixins/query.js"></script>
+	<script id="setup">
+		Fractal.scan(document.body);
+		Fractal.define('list').mixin('query');
+	</script>
+	<script id="run">
+		var list1 = Fractal.add('list')
+		  , list2 = Fractal.add('list');
+		
+		console.assert(list1.$('li').length === 3);
+	</script>
+</body>
+</html>

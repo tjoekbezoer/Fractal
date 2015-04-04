@@ -194,5 +194,6 @@
 // Misc
 // ----
 function hashView( view ) {
+  if( !view._mixins.query ) throw new Error('Missing query mixin');
 	return md5(view.$('*').html().replace(/[\t\n]+/gi, ''));
 }
