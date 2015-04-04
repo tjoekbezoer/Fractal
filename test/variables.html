@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite: Variables</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="main">
+		<div class="main">
+			Variable: {value.upper()}
+		</div>
+	</template>
+	
+	<script src="functions.js"></script>
+	<script src="../lib/fractal.js"></script>
+	<script src="../lib/mixins/variables/variables.js"></script>
+	<script src="../lib/mixins/variables/modifiers.js"></script>
+	<script id="setup">
+		Fractal.scan(document.body);
+		
+		Fractal.define('main');
+		Fractal.define('main', 'main+', {
+			mixins: 'variables'
+		})
+		
+	</script>
+	<script id="run">
+		Fractal.add('main');
+		Fractal.add('main+', {value: 'test'});
+	</script>
+</body>
+</html>
