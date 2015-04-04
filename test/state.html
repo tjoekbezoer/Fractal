@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite: State</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="parent">
+		<div id="parent">
+			<h1>Parent</h1>
+			<template data-name="child">
+				- Child<br/>
+			</template>
+		</div>
+	</template>
+	
+	<script src="functions.js"></script>
+	<script src="../lib/fractal.js"></script>
+	<script id="setup">
+		Fractal.scan(document.body);
+		
+	</script>
+	<script id="run">
+		Fractal.add('parent', {children: ['one', 'two']});
+	</script>
+</body>
+</html>
