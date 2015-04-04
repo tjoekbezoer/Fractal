@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="main">
+		<div id="main">
+			Mixins: {var}
+		</div>
+	</template>
+	
+	<script src="functions.js"></script>
+	<script src="../lib/fractal.js"></script>
+	<script id="setup">
+		var count = 0;
+		
+		Fractal.scan(document.body);
+		
+		Fractal.defineMixin('test', {
+			hooks: {
+				render: function() {
+					count++;
+				}
+			}
+		});
+		Fractal.defineMixin('test2', {
+			require: ['test'],
+			hooks: {
+				render: function() {
+					count++;
+				},
+				afterRender: function() {
+					count++;
+				}
+			}
+		});
+		
+		var Main = Fractal.define('main', {
+			mixins: ['test', 'test2']
+		});
+	</script>
+	<script id="run">
+		Fractal.add('main');
+		console.assert(count == 3);
+		// console.log(count);
+	</script>
+</body>
+</html>

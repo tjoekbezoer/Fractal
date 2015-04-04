@@ -1,0 +1,4 @@
+/* IE needs this */
+template {
+	display: none;
+}
