@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite: Invoke</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="main">
+		<div id="main">
+			<template data-name="table">
+				<table border="1">
+					<template data-name="row"><tr><td>countUp</td><td>==value==</td></tr></template>
+				</table>
+			</template>
+		</div>
+	</template>
+	
+	<script src="functions.js"></script>
+	<script src="../lib/fractal.js"></script>
+	<script src="../lib/mixins/invoke.js"></script>
+	<script id="setup">
+		Fractal.scan(document.body);
+		
+		var countUp    = 0
+		  , countDown1 = 0
+		  , countDown2 = 0;
+		
+		var View = Fractal.View.extend({
+			mixins: ['invoke']
+		});
+		
+		Fractal.define('main', View, {
+			countUp: function( num ) {
+				// Should never be called.
+				countUp += num;
+			},
+			
+			render: function() {
+				this.add('table', {rows: 5});
+				
+				// Will only be invoked once, on the `table` child.
+				this.invokeDown('countDown1');
+				// Will be invoked 5 times, because it trickles down to every `row`.
+				this.invokeDown('countDown2');
+			}
+		});
+		Fractal.define('main.table', View, {
+			defaultState: {
+				rows: 0
+			},
+			
+			countUp: function( num ) {
+				countUp += num;
+			},
+			countDown1: function() {
+				countDown1++;
+			},
+			
+			render: function() {
+				for( var i=0; i<this.state.rows; i++ ) {
+					this.add('row');
+				}
+				// Will be invoked 5 times.
+				this.invokeDown('countDown1');
+			}
+		});
+		Fractal.define('main.table.row', View, {
+			countDown1: function() {
+				countDown1++;
+			},
+			countDown2: function() {
+				countDown2++;
+			},
+			
+			render: function() {
+				// Will invoke `countUp` on the parent 5 times, since 5 rows are added
+				// to the table. The `countUp` method on the `main` view will not be invoked.
+				this.invokeUp('countUp', 2);
+				this.template.fragmentNodes[0].getElementsByTagName('td')[1].innerHTML = countUp;
+			}
+		});
+	</script>
+	<script id="run">
+		var main = Fractal.add('main');
+		
+		console.assert(countUp == 10);
+		console.assert(countDown1 == 6);
+		console.assert(countDown2 == 5);
+	</script>
+</body>
+</html>
