@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MapKit 3</title>
+		
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+		<template data-name="select">
+			<select>
+				<template data-name="option"><option>{value.default('Default value')}</option></template>
+			</select>
+		</template>
+		
+		<template data-name="table">
+			<table>
+				<template data-name="th">
+					<thead>
+						<tr>
+							<th>Col 1</th>
+							<th>Col 2</th>
+						</tr>
+					</thead>
+				</template>
+				
+				<thead>
+					<template data-name="thead-th">
+						<tr>
+							<th>Col 1 (thead)</th>
+							<th>Col 2 (thead)</th>
+						</tr>
+					</template>
+				</thead>
+				
+				<template data-name="row">
+					<tr>
+						<template data-name="td"><td>{value}</td></template>
+					</tr>
+				</template>
+			</table>
+		</template>
+		
+		<div id="test"></div>
+		<div></div>
+		
+		<script src="functions.js"></script>
+		<script src="zepto.js"></script>
+		<script src="../lib/fractal.js"></script>
+		<script src="../lib/mixins/variables/variables.js"></script>
+		<script src="../lib/mixins/variables/modifiers.js"></script>
+		<script>
+			Fractal.scan(document.body);
+			Fractal.View.mixin('variables');
+			
+			// First time in my life I use `with` :D
+			with( Fractal.add('select') ) {
+				add('option', {value: 'Option 1'});
+				add('option', {value: 'Option 2'});
+				add('option');
+			}
+			
+			var table = Fractal.add('table');
+			table.add('th');
+			table.add('thead-th');
+			
+			var row = table.add('row');
+			row.add('td', {value: 'Rowcol 1'});
+			row.add('td', {value: 'Rowcol 2'});
+		</script>
+	</body>
+</html>
