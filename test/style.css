@@ -1,4 +1,4 @@
 /* IE needs this */
-template {
+template, *[data-name] {
 	display: none;
 }
