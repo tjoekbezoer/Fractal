@@ -7,31 +7,17 @@
 	</head>
 
 	<body>
-		<template data-name="select">
-			<select>
-				<template data-name="option"><option>{value.default('Default value')}</option></template>
-			</select>
-		</template>
-		
 		<template data-name="table">
+			<h2>Table</h2>
 			<table>
 				<template data-name="th">
 					<thead>
 						<tr>
-							<th>Col 1</th>
-							<th>Col 2</th>
+							<th>Head 1</th>
+							<th>Head 2</th>
 						</tr>
 					</thead>
 				</template>
-				
-				<thead>
-					<template data-name="thead-th">
-						<tr>
-							<th>Col 1 (thead)</th>
-							<th>Col 2 (thead)</th>
-						</tr>
-					</template>
-				</thead>
 				
 				<template data-name="row">
 					<tr>
@@ -41,8 +27,24 @@
 			</table>
 		</template>
 		
-		<div id="test"></div>
-		<div></div>
+		<h2>Table direct</h2>
+		<table data-name="tableDirect">
+			<tr>
+				<th>Head 1</th>
+				<th>Head 2</th>
+			</tr>
+			<tr data-name="row">
+				<td>Col 1</td>
+				<td>Col 2</td>
+			</tr>
+		</table>
+		
+		<template data-name="select">
+			<h2>Select</h2>
+			<select>
+				<option data-name="option">{value.default('Default value')}</option>
+			</select>
+		</template>
 		
 		<script src="functions.js"></script>
 		<script src="zepto.js"></script>
@@ -53,20 +55,29 @@
 			Fractal.scan(document.body);
 			Fractal.View.mixin('variables');
 			
+			var table = Fractal.add('table');
+			table.add('th');
+			
+			with( table.add('row') ) {
+				add('td', {value: 'Col 1-1'});
+				add('td', {value: 'Col 1-2'});
+			}
+			with( table.add('row') ) {
+				add('td', {value: 'Col 2-1'});
+				add('td', {value: 'Col 2-2'});
+			}
+			
+			with( Fractal.add('tableDirect') ) {
+				add('row');
+				add('row');
+			}
+			
 			// First time in my life I use `with` :D
 			with( Fractal.add('select') ) {
 				add('option', {value: 'Option 1'});
 				add('option', {value: 'Option 2'});
 				add('option');
 			}
-			
-			var table = Fractal.add('table');
-			table.add('th');
-			table.add('thead-th');
-			
-			var row = table.add('row');
-			row.add('td', {value: 'Rowcol 1'});
-			row.add('td', {value: 'Rowcol 2'});
 		</script>
 	</body>
 </html>
