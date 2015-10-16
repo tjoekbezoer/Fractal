@@ -10,16 +10,26 @@
 		<div id="parent">
 			<h1>Parent</h1>
 			<template data-name="child">
-				- Child<br/>
+				- Child {name}<br/>
 			</template>
 		</div>
 	</template>
 	
 	<script src="functions.js"></script>
 	<script src="../lib/fractal.js"></script>
+	<script src="../lib/mixins/variables/variables.js"></script>
+	<script src="../lib/mixins/variables/modifiers.js"></script>
 	<script id="setup">
 		Fractal.scan(document.body);
+		Fractal.View.mixin('variables');
 		
+		Fractal.define('parent', {
+			render: function() {
+				this.state.children.forEach(function( childName ) {
+					this.add('child', {name: childName});
+				}, this);
+			}
+		});
 	</script>
 	<script id="run">
 		Fractal.add('parent', {children: ['one', 'two']});
