@@ -20,5 +20,3 @@ espree.process('lib/index.js');
 // Create dir and write file.
 mkdirp.sync(path.dirname(output));
 fs.writeFileSync(output, espree.reset());
-
-console.log('Build done.');
