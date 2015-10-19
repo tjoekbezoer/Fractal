@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fractal Test Suite: General</title>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<template data-name="main">
+		<div>Test</div>
+	</template>
+	
+	<!-- Empty ref template -->
+	<template data-name="ref" data-ref="main"></template>
+	
+	<script src="functions.js"></script>
+	<script src="../dist/fractal.js"></script>
+	<script id="setup">
+		Fractal.scan(document.body);
+		
+	</script>
+	<script id="run">
+		
+	</script>
+</body>
+</html>
