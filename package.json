@@ -1,0 +1,34 @@
+{
+  "name": "fractal",
+  "version": "1.0.0",
+  "description": "<template> engine, built for seperating HTML from its behavior",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "espree-js": "^1.0.0",
+    "yargs": "^3.27.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tjoekbezoer/Fractal.git"
+  },
+  "keywords": [
+    "templates",
+    "template",
+    "engine",
+    "fractal",
+    "behavior",
+    "mvc",
+    "flux",
+    "react"
+  ],
+  "author": "Daan Mortier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjoekbezoer/Fractal/issues"
+  },
+  "homepage": "https://github.com/tjoekbezoer/Fractal#readme"
+}
