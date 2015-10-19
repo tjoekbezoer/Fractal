@@ -1,1 +1,0 @@
-browserify lib/fractal.js lib/mixins/variables -o dist/fractal.js
