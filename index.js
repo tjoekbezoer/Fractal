@@ -1,12 +1,5 @@
-(function( module ) {
-/*@
-	include('lib/fractal.js');
-	
-	mixins.forEach(function( mixin ) {
-		include('lib/mixins/'+mixin+'.js');
-	});
-*/
-
-var target = module.exports ? module.exports : module;
-target.Fractal = Fractal;
-})(typeof module == 'object' ? module : this);
+// To make this work, do a `node build.js --mixins=*` to build fractal
+// to the standard location of `dist/fractal.js`. You can also choose
+// which mixins to include be specifying a comma separated list instead
+// of a wildcard.
+module.exports = require('dist/fractal').Fractal;
