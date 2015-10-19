@@ -1,6 +1,8 @@
-var fs     = require('fs');
+var fs     = require('fs')
+  , path   = require('path');
 var yargs  = require('yargs')
-  , espree = require('espree-js');
+  , espree = require('espree-js')
+  , mkdirp = require('mkdirp');
 
 yargs.alias('mixins', 'm')
      .alias('output', 'o');
@@ -11,7 +13,12 @@ var mixins = argv.mixins ?
              ['invoke', 'query', 'variables'];
 var output = argv.output || 'dist/fractal.js';
 
+// `mixins` is used in index.js to determin what mixins
+// should be included in the build.
 espree.addGlobal('mixins', mixins);
 espree.process('index.js');
+// Create dir and write file.
+mkdirp.sync(path.dirname(output));
 fs.writeFileSync(output, espree.reset());
+
 console.log('Build done.');

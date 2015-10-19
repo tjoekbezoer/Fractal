@@ -9,6 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "espree-js": "^1.0.0",
+    "mkdirp": "^0.5.1",
     "yargs": "^3.27.0"
   },
   "repository": {
