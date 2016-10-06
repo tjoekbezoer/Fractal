@@ -588,6 +588,7 @@ var Fractal = {
 	},
 	
 	// Import some methods from `View`.
+	replace:          View.prototype.replace,
 	append:           View.prototype.append,
 	prepend:          View.prototype.prepend,
 	before:           View.prototype.before,
