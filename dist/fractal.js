@@ -889,13 +889,8 @@ Fractal.defineMixin('query', {
 		$fragment: undefined,
 		
 		$: function( selector ) {
-			var parents  = this.$fragment.filter(selector)
-			  , children = this.$fragment.find(selector);
-			if( parents.length && children.length ) {
-				return parents.add(children);
-			} else {
-				return parents.length ? parents : children;
-			}
+			var fragment = this.template.fragment;
+			return $(fragment.querySelectorAll(selector));
 		}
 	}
 });
