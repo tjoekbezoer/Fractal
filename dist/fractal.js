@@ -1,5 +1,13 @@
 (function( exports ) {
-'use strict';
+	function factory( window ) {
+		var document            = window.document
+		  , Node                = window.Node
+		  , Element             = window.Element
+		  , Text                = window.Text
+		  , HTMLTemplateElement = window.HTMLTemplateElement
+		  , DocumentFragment    = window.DocumentFragment;
+		
+		'use strict';
 
 var _supportsTemplate = 'content' in document.createElement('template');
 
@@ -249,7 +257,7 @@ View.prototype = {
 			this.children[0].destroy();
 		}
 		this._callHook('clear');
-		this.clear();
+		this.clear && this.clear();
 		
 		if( !this.template ) return null;
 		
@@ -588,6 +596,7 @@ var Fractal = {
 	},
 	
 	// Import some methods from `View`.
+	empty:            View.prototype.empty,
 	replace:          View.prototype.replace,
 	append:           View.prototype.append,
 	prepend:          View.prototype.prepend,
@@ -598,6 +607,7 @@ var Fractal = {
 	_createChild:     View.prototype._createChild,
 	_addReference:    View.prototype._addReference,
 	_removeReference: View.prototype._removeReference,
+	_callHook:        View.prototype._callHook,
 	
 	// Utility methods
 	// ---------------
@@ -1029,9 +1039,13 @@ Fractal.Variable.modifier({
 	}
 });
 
+		return Fractal;
+	}
+	factory.factory = factory;
 
-exports.Fractal = Fractal;
-if( typeof module == 'object' && module.exports ) {
-	module.exports = Fractal;
-}
+	if( typeof module == 'object' && module.exports ) {
+		module.exports = factory;
+	} else {
+		exports.Fractal = factory(exports);
+	}
 })(typeof exports == 'object' ? exports : this);
