@@ -1,6 +1,6 @@
 {
   "name": "fractal",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "<template> engine, built for seperating HTML from its behavior",
   "main": "index.js",
   "directories": {

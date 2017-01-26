@@ -429,8 +429,8 @@ View.prototype = {
 		if( oldState && this._rendered ) {
 			var diff = this._diffState(oldState);
 			if( diff ) {
-				this._callHook('afterStateChange', diff, options);
 				this.afterStateChange(diff, options);
+				this._callHook('afterStateChange', diff, options);
 			}
 		}
 		
