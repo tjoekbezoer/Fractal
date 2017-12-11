@@ -292,7 +292,9 @@ View.prototype = {
 		                                local; // before
 		
 		this._addReference(child);
-		return child.out(before);
+		child.out(before);
+		child.propagateMount();
+		return child;
 	},
 	// Adds a new child view when there's none with this name added yet.
 	// Otherwise, it destroys all but the last one, and updates the state
@@ -328,14 +330,13 @@ View.prototype = {
 		
 		this._callHook('render');
 		this.render();
-		this._callHook('afterRender');
-		this.afterRender();
 		
 		var parentNode = (before || this.template.local).parentNode;
 		parentNode.insertBefore(this.template.fragment, before);
-		
 		this._rendered = true;
-		this.propagateMount();
+		
+		this._callHook('afterRender');
+		this.afterRender();
 		
 		return this;
 	},
